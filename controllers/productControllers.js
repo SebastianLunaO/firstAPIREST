@@ -68,20 +68,40 @@ async function updateProduct(req,res,id) {
             res.write(JSON.stringify({message : 'not found'}));
             res.end()    
         }else{
+            const body =await getPOSTData(req)
             const {title,description,price} = JSON.parse(body);
-            const product ={title,description,price}
+            const productData ={title: title || product.title,
+                description: description || product.description,
+                price: price || product.price}
 
-            const newProduct =  await Product.create(product);
+            const updProduct =  await Product.update(id, productData);
 
-            res.writeHead(201,{'content-type': 'application/json'});
-            res.end(JSON.stringify(newProduct));
+            res.writeHead(200,{'content-type': 'application/json'});
+            res.end(JSON.stringify(updProduct));
         }
+      
 
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+async function deleteProduct(req,res,number){
+    
+    try {
+    const product = await Product.findSpecific(number)
+
+        if (!product){  
+            res.writeHead(404,{'content-type':'application/json'});
+            res.write(JSON.stringify({message : 'not found'}));
+            res.end()    
+        }else{
+        res.writeHead(200,{'content-type':'application/json'});
+        res.write(JSON.stringify(product));
+        res.end()
+        }
         
-
-
-        
-
     } catch (error) {
         console.log(error)
     }
@@ -92,5 +112,7 @@ async function updateProduct(req,res,id) {
 module.exports ={
     getProducts,
     getProduct,
-    createProduct
+    createProduct,
+    updateProduct,
+    deleteProduct
 }

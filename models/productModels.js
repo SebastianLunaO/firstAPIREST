@@ -26,11 +26,21 @@ function create(product){
     })
 }
 
+function update(number,updproduct){
+    return new Promise((resolve,reject)=>{
+        const index = products.findIndex((p)=> p.id=== number)
+        const id = number
+        products[index] = {id, ...updproduct}
+        writeDataToFile('./data/data.json',products)
+        resolve(products[index])
+    })
+}
 
 
 module.exports ={
     findAll,
     findSpecific,
-    create
+    create,
+    update
 }
 
