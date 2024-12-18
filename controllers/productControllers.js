@@ -86,7 +86,7 @@ async function updateProduct(req,res,id) {
     }
 }
 
-
+//DELETE
 async function deleteProduct(req,res,number){
     
     try {
@@ -97,8 +97,9 @@ async function deleteProduct(req,res,number){
             res.write(JSON.stringify({message : 'not found'}));
             res.end()    
         }else{
+        await Product.remove(number)
         res.writeHead(200,{'content-type':'application/json'});
-        res.write(JSON.stringify(product));
+        res.write(JSON.stringify({message: `Product ${number} remove`}));
         res.end()
         }
         

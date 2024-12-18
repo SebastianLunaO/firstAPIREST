@@ -1,4 +1,4 @@
-const products = require('../data/data.json')
+let products = require('../data/data.json')
 const { v4:uuidv4 } =require('uuid')
 
 const {writeDataToFile} = require('../utils.js')
@@ -36,11 +36,20 @@ function update(number,updproduct){
     })
 }
 
+function remove(number){
+    return new Promise((resolve,reject)=>{
+        products = products.filter((p)=> p.id !== number)
+        writeDataToFile('./data/data.json',products)
+        resolve()
+    })
+}
+
 
 module.exports ={
     findAll,
     findSpecific,
     create,
-    update
+    update,
+    remove
 }
 
