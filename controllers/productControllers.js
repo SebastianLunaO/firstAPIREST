@@ -1,6 +1,6 @@
 const Product = require('../models/productModels')
 
-
+const {getPOSTData} = require('../utils.js')
 // get ALL Products by /api/products
 async function getProducts(req,res) {
     try {
@@ -38,21 +38,56 @@ async function getProduct(req,res,number){
 
 async function createProduct(req,res) {
     try {
-        const product ={
-            title: 'Test Product',
-            description: 'This is my product',
-            price: 100
-        }
+        
+        const body = await getPOSTData(req)
 
-        const newProduct = await Product.create(product);
+        const {title,description,price} = JSON.parse(body);
+        const product ={title,description,price}
+
+        const newProduct =  await Product.create(product);
 
         res.writeHead(201,{'content-type': 'application/json'});
-        return res.end(JSON.stringify(newProduct));
+        res.end(JSON.stringify(newProduct));
+
+
+        
 
     } catch (error) {
         console.log(error)
     }
 }
+
+//updateProduct
+async function updateProduct(req,res,id) {
+    try {
+        const product = await Product.findSpecific(id)
+
+
+        if (!product){  
+            res.writeHead(404,{'content-type':'application/json'});
+            res.write(JSON.stringify({message : 'not found'}));
+            res.end()    
+        }else{
+            const {title,description,price} = JSON.parse(body);
+            const product ={title,description,price}
+
+            const newProduct =  await Product.create(product);
+
+            res.writeHead(201,{'content-type': 'application/json'});
+            res.end(JSON.stringify(newProduct));
+        }
+
+        
+
+
+        
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 
 module.exports ={
     getProducts,

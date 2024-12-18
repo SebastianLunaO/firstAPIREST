@@ -12,6 +12,10 @@ const server = http.createServer((req,res)=> {
 
     } else if(req.method==='POST' && req.url==='/api/products'){
         createProduct(req,res)
+    }else if(req.url.match(/\/api\/products\/([0-9]+)/)  && req.method==='PUT') {
+        const id = req.url.split('/')[3]
+        updateProduct(req,res,id)
+
     } 
     else{
         res.writeHead(404,{'content-type':'application/json'});
