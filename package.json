@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/SebastianLunaO/firstAPIREST#readme",
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "uuid": "^11.0.3"
   },
   "dependencies": {
     "20": "^3.1.9"

@@ -4,7 +4,7 @@ const Product = require('../models/productModels')
 // get ALL Products by /api/products
 async function getProducts(req,res) {
     try {
-        const products = await product.findAll() 
+        const products = await Product.findAll() 
 
         res.writeHead(200,{'content-type':'application/json'});
         res.write(JSON.stringify(products));
@@ -35,13 +35,20 @@ async function getProduct(req,res,number){
     }
 }
 //create a product
+
 async function createProduct(req,res) {
     try {
-        const products = await product.findAll() 
+        const product ={
+            title: 'Test Product',
+            description: 'This is my product',
+            price: 100
+        }
 
-        res.writeHead(200,{'content-type':'application/json'});
-        res.write(JSON.stringify(products));
-        res.end()
+        const newProduct = await Product.create(product);
+
+        res.writeHead(201,{'content-type': 'application/json'});
+        return res.end(JSON.stringify(newProduct));
+
     } catch (error) {
         console.log(error)
     }
@@ -49,5 +56,6 @@ async function createProduct(req,res) {
 
 module.exports ={
     getProducts,
-    getProduct
+    getProduct,
+    createProduct
 }

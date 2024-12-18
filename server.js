@@ -9,7 +9,8 @@ const server = http.createServer((req,res)=> {
     }else if(req.url.match(/\/api\/products\/([0-9]+)/)  && req.method==='GET') {
         const id = req.url.split('/')[3]
         getProduct(req,res,id);
-    } else if(req.url==='POST' && req.url==='/api/products'){
+
+    } else if(req.method==='POST' && req.url==='/api/products'){
         createProduct(req,res)
     } 
     else{
