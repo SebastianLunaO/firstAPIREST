@@ -2,9 +2,9 @@
   "name": "firstapirest",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node --watch server.js"
+    "start": "nodemon --env-file=.env server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/SebastianLunaO/firstAPIREST/issues"
   },
-  "homepage": "https://github.com/SebastianLunaO/firstAPIREST#readme"
+  "homepage": "https://github.com/SebastianLunaO/firstAPIREST#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "20": "^3.1.9"
+  }
 }
